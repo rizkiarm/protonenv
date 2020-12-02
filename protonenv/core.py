@@ -29,7 +29,7 @@ def proton_exec(version, prefix_name, command, flags=None):
 	if flags is not None:
 		for k,v in flags.items():
 			env[k] = v
-	exec(f'{proton_exec_path} waitforexitandrun {command}', env=env)
+	cmd_exec(f'{proton_exec_path} waitforexitandrun {command}', env=env)
 
 def ask_common_dir():
 	while True:
@@ -167,7 +167,7 @@ def directory(args):
 		die(f'Prefix {args.prefix} does not exists.')
 	content_path = get_prefix_content_path(args.prefix)
 	if args.open:
-		exec(f'xdg-open {content_path}')
+		cmd_exec(f'xdg-open {content_path}')
 	die(content_path)
 
 @subcommand([Argument("name", help="Proton version or prefix name"), Argument("command", nargs='?', default=None, help="Command to execute")])
@@ -194,8 +194,3 @@ def main():
 		cli.print_help()
 	else:
 		args.func(args)
-
-# ---
-
-if __name__ == '__main__':
-	main()

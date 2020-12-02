@@ -24,14 +24,14 @@ def json_dump(path, content):
 
 # ---
 
-def exec(command, env=None):
+def cmd_exec(command, env=None):
     if env is None:
     	env = {}
     env = {**env, **dict(os.environ)}
     subprocess.run(command, shell=True, env=env)
 
 def exec_and_exit(*args, **kwargs):
-	exec(*args, **kwargs)
+	cmd_exec(*args, **kwargs)
 	exit()
 
 # ---

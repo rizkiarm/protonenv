@@ -11,12 +11,19 @@ A simple tool to manage different Proton versions and prefixes through the comma
 * Steam
 
 ## Installation
+### PyPI (recommended)
+```
+pip install protonenv
+```
+### GitHub
 #### Non-editable
 ```
 pip install --upgrade git+https://github.com/rizkiarm/protonenv.git
 ```
 You can upgrade the package by re-running the above command.
 #### Editable
+This option is recommended for development.
+
 In the folder of your choosing, run the following command:
 ```
 git clone https://github.com/rizkiarm/protonenv.git
@@ -26,7 +33,7 @@ pip install -e .
 You can upgrade the package by running ``git pull`` from the ``protonenv`` folder.
 
 ## Usage
-#### Basic commands
+### Basic commands
 ```
 protonenv versions
 protonenv install {<version>,--list}
@@ -34,7 +41,7 @@ protonenv uninstall {<version>,<prefix>}
 protonenv prefix <version> <prefix>
 protonenv run <prefix> [command]
 ```
-#### Managing a prefix
+### Managing a prefix
 ```
 protonenv default <prefix> --command <command> --flags <KEY1=VALUE1> [KEY2=VALUE2] ...
 protonenv info <prefix>
@@ -42,14 +49,14 @@ protonenv directory <prefix> [--open]
 ```
 The available flags (runtime config options) can be obtained from:
 https://github.com/ValveSoftware/Proton#runtime-config-options
-#### More info
+### More info
 ```
 protonenv -h
 protonenv -h {versions,install,uninstall,prefix,default,info,directory,run}
 ```
 
 ## Examples
-#### Basic example
+### Basic example
 Install Proton 5.0
 ```
 protonenv install 5.0 
@@ -73,7 +80,7 @@ protonenv default inside --flags PROTON_USE_WINED3D=1
 # Run INSIDE
 protonenv run inside
 ```
-#### Directly running a program
+### Directly running a program
 An example of running ``program.exe`` with Proton 5.0
 ```
 protonenv run 5.0 /path/to/program.exe
