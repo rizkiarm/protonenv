@@ -1,19 +1,30 @@
 import os
+from dataclasses import dataclass
 
-# ---
-
-class Configuration(object):
-	def __init__(self, dictionary=None):
-		if dictionary is not None:
-			self.__dict__.update(dictionary)
+from .utils import json_load
 
 # ---
 
 HOME_DIR = os.path.expanduser("~")
+PROTONENV_DIR = os.path.join(HOME_DIR, '.protonenv')
 
-config = Configuration()
-config.common_dir = os.path.join(HOME_DIR, '.steam/debian-installation/steamapps/common')
-config.protonenv_dir = os.path.join(HOME_DIR, '.protonenv')
-config.prefixes_dir = os.path.join(config.protonenv_dir, 'prefixes')
-config.temporary_dir = os.path.join(config.protonenv_dir, 'temp')
-config.config_path = os.path.join(config.protonenv_dir, 'config.json')
+
+@dataclass
+class Configuration:
+	common_dir: str = os.path.join(HOME_DIR, '.steam/debian-installation/steamapps/common')
+	protonenv_dir: str = PROTONENV_DIR
+	prefixes_dir: str = os.path.join(PROTONENV_DIR, 'prefixes')
+	temporary_dir: str = os.path.join(PROTONENV_DIR, 'temp')
+	config_path: str = os.path.join(PROTONENV_DIR, 'config.json')
+
+	def read_json(self):
+		json_config = json_load(self.config_path)
+		for k in ["common_dir", "protonenv_dir", "prefixes_dir", "temporary_dir", "config_path"]:
+			if k in json_config:
+				self.__setattr__(k, json_config[k])
+
+		return self
+# ---
+
+
+config = Configuration().read_json()

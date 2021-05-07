@@ -38,7 +38,7 @@ def ask_common_dir():
 			ans = config.common_dir
 		if os.path.exists(ans):
 			break
-		print(f'{ans} does not exists, try again...')
+		print(f'{ans} does not exist, try again...')
 	return ans
 
 
@@ -118,9 +118,9 @@ def uninstall(args):
 @subcommand([Argument("version", help="Proton version"), Argument("prefix", help="Prefix name")])
 def prefix(args):
 	if prefix_exists(args.prefix):
-		die(f'Prefix "{args.prefix}" has already exists.')
+		die(f'Prefix "{args.prefix}" already exists.')
 	if not proton_exists(args.version):
-		die(f'Proton {args.version} does not exists.')
+		die(f'Proton {args.version} does not exist.')
 	os.makedirs(get_prefix_path(args.prefix))
 	prefix_config = {"version": args.version}
 	prefix_config_save(args.prefix, prefix_config)
@@ -129,7 +129,7 @@ def prefix(args):
 @subcommand([Argument("prefix", help="Prefix name"), Argument("--flags", help="Environment variable: KEY=VALUE", nargs='+'), Argument("--command", help="Default command")])
 def default(args):
 	if not prefix_exists(args.prefix):
-		die(f'Prefix {args.prefix} does not exists.')
+		die(f'Prefix {args.prefix} does not exist.')
 	prefix_config = prefix_config_load(args.prefix)
 	if args.command:
 		prefix_config['command'] = args.command
@@ -151,7 +151,7 @@ def default(args):
 @subcommand([Argument("prefix", help="Prefix name")])
 def info(args):
 	if not prefix_exists(args.prefix):
-		die(f'Prefix {args.prefix} does not exists.')
+		die(f'Prefix {args.prefix} does not exist.')
 	prefix_config = prefix_config_load(args.prefix)
 	die(f'\
 {args.prefix}\n\
@@ -164,7 +164,7 @@ Flags\t: {prefix_config.get("flags")}\
 @subcommand([Argument("prefix", help="Prefix name"), Argument("--open", action="store_true", help="Open the directory")])
 def directory(args):
 	if not prefix_exists(args.prefix):
-		die(f'Prefix {args.prefix} does not exists.')
+		die(f'Prefix {args.prefix} does not exist.')
 	content_path = get_prefix_content_path(args.prefix)
 	if args.open:
 		cmd_exec(f'xdg-open {content_path}')
@@ -174,7 +174,7 @@ def directory(args):
 def run(args):
 	if not prefix_exists(args.name):
 		if not proton_exists(args.name):
-			die(f'{args.name} does not exists.')
+			die(f'{args.name} does not exist.')
 		if not args.command:
 			die('Command is not specified.')
 		proton_exec(args.name, None, args.command)

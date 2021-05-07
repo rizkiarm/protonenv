@@ -30,7 +30,7 @@ def proton_exists(version):
 	return os.path.exists(get_proton_exec_path(version))
 
 def config_load():
-	return Configuration(json_load(config.config_path))
+	return Configuration().read_json()
 
 def config_save(content):
 	json_dump(config.config_path, vars(content))
